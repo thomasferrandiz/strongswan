@@ -1592,7 +1592,7 @@ static status_t send_key_exchange_encrypt(private_tls_peer_t *this,
 		this->alert->add(this->alert, TLS_FATAL, TLS_CERTIFICATE_UNKNOWN);
 		return NEED_MORE;
 	}
-	if (!public->encrypt(public, ENCRYPT_RSA_PKCS1, NULL,
+	if (!public->wencrypt(public, ENCRYPT_RSA_PKCS1, NULL,
 						 chunk_from_thing(premaster), &encrypted))
 	{
 		public->destroy(public);

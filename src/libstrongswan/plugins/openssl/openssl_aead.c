@@ -143,7 +143,7 @@ done:
 	return success;
 }
 
-METHOD(aead_t, encrypt, bool,
+METHOD(aead_t, wencrypt, bool,
 	private_aead_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
 	chunk_t *encrypted)
 {
@@ -239,7 +239,7 @@ aead_t *openssl_aead_create(encryption_algorithm_t algo,
 
 	INIT(this,
 		.public = {
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.decrypt = _decrypt,
 			.get_block_size = _get_block_size,
 			.get_icv_size = _get_icv_size,

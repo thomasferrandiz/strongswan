@@ -35,7 +35,7 @@ typedef struct esp_context_t esp_context_t;
 struct esp_context_t {
 
 	/**
-	 * Get AEAD wrapper or method to encrypt/decrypt/authenticate ESP packets.
+	 * Get AEAD wrapper or method to wencrypt/decrypt/authenticate ESP packets.
 	 *
 	 * @return				AEAD wrapper of method
 	 */

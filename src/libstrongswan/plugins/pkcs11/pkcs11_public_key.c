@@ -304,7 +304,7 @@ METHOD(public_key_t, verify, bool,
 	return TRUE;
 }
 
-METHOD(public_key_t, encrypt, bool,
+METHOD(public_key_t, wencrypt, bool,
 	private_pkcs11_public_key_t *this, encryption_scheme_t scheme,
 	void *params, chunk_t plain, chunk_t *crypt)
 {
@@ -536,7 +536,7 @@ static private_pkcs11_public_key_t *create(key_type_t type, size_t k,
 			.key = {
 				.get_type = _get_type,
 				.verify = _verify,
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.equals = public_key_equals,
 				.get_keysize = _get_keysize,
 				.get_fingerprint = _get_fingerprint,

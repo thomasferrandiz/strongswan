@@ -300,7 +300,7 @@ curve25519_public_key_t *curve25519_public_key_load(key_type_t type,
 			.key = {
 				.get_type = _get_type,
 				.verify = _verify,
-				.encrypt = _encrypt_,
+				.wencrypt = _encrypt_,
 				.equals = public_key_equals,
 				.get_keysize = _get_keysize,
 				.get_fingerprint = _get_fingerprint,

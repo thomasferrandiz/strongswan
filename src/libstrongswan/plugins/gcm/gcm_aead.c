@@ -166,7 +166,7 @@ static bool gctr(private_gcm_aead_t *this, char *icb, chunk_t x)
 	while (x.len)
 	{
 		memcpy(tmp, cb, BLOCK_SIZE);
-		if (!this->crypter->encrypt(this->crypter, chunk_from_thing(tmp),
+		if (!this->crypter->wencrypt(this->crypter, chunk_from_thing(tmp),
 									chunk_from_thing(iv), NULL))
 		{
 			return FALSE;
@@ -198,7 +198,7 @@ static bool create_h(private_gcm_aead_t *this, char *h)
 	memset(zero, 0, BLOCK_SIZE);
 	memset(h, 0, BLOCK_SIZE);
 
-	return this->crypter->encrypt(this->crypter, chunk_create(h, BLOCK_SIZE),
+	return this->crypter->wencrypt(this->crypter, chunk_create(h, BLOCK_SIZE),
 								  chunk_from_thing(zero), NULL);
 }
 
@@ -280,7 +280,7 @@ static bool verify_icv(private_gcm_aead_t *this, chunk_t assoc, chunk_t crypt,
 		   memeq_const(tmp, icv, this->icv_size);
 }
 
-METHOD(aead_t, encrypt, bool,
+METHOD(aead_t, wencrypt, bool,
 	private_gcm_aead_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
 	chunk_t *encrypted)
 {
@@ -420,7 +420,7 @@ gcm_aead_t *gcm_aead_create(encryption_algorithm_t algo,
 	INIT(this,
 		.public = {
 			.aead = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_icv_size = _get_icv_size,

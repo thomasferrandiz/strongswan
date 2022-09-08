@@ -188,7 +188,7 @@ struct public_key_t {
 	 * @param crypto	where to allocate encrypted data
 	 * @return			TRUE if data successfully encrypted
 	 */
-	bool (*encrypt)(public_key_t *this, encryption_scheme_t scheme,
+	bool (*wencrypt)(public_key_t *this, encryption_scheme_t scheme,
 					void *params, chunk_t plain, chunk_t *crypto);
 
 	/**

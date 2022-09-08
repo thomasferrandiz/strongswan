@@ -166,7 +166,7 @@ enum tls_extension_t {
 	TLS_CLIENT_CERTIFICATE_TYPE = 19,
 	/** exchange raw public key, server side*/
 	TLS_SERVER_CERTIFICATE_TYPE = 20,
-	/** use encrypt-then-MAC security mechanism RFC 7366 */
+	/** use wencrypt-then-MAC security mechanism RFC 7366 */
 	TLS_EXT_ENCRYPT_THEN_MAC = 22,
 	/** bind master secret to handshake data RFC 7627 */
 	TLS_EXT_EXTENDED_MASTER_SECRET = 23,

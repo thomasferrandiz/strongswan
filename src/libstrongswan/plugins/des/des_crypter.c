@@ -1034,7 +1034,7 @@ static void des_encrypt(DES_LONG *data, des_key_schedule ks, int enc)
 }
 
 /**
- * DES CBC encrypt decrypt routine
+ * DES CBC wencrypt decrypt routine
  */
 static void des_cbc_encrypt(des_cblock *input, des_cblock *output, long length,
 						    des_key_schedule schedule, des_cblock *ivec, int enc)
@@ -1107,7 +1107,7 @@ static void des_cbc_encrypt(des_cblock *input, des_cblock *output, long length,
 }
 
 /**
- * DES ECB encrypt decrypt routine
+ * DES ECB wencrypt decrypt routine
  */
 static void des_ecb_encrypt(des_cblock *input, des_cblock *output, long length,
 						    des_key_schedule schedule, int enc)
@@ -1257,7 +1257,7 @@ static void des_encrypt2(DES_LONG *data, des_key_schedule ks, int enc)
 }
 
 /**
- * Single block 3DES EDE encrypt routine
+ * Single block 3DES EDE wencrypt routine
  */
 static void des_encrypt3(DES_LONG *data, des_key_schedule ks1,
 						 des_key_schedule ks2, des_key_schedule ks3)
@@ -1303,7 +1303,7 @@ static void des_decrypt3(DES_LONG *data, des_key_schedule ks1,
 }
 
 /**
- * 3DES EDE CBC encrypt/decrypt routine
+ * 3DES EDE CBC wencrypt/decrypt routine
  */
 static void des_ede3_cbc_encrypt(des_cblock *input, des_cblock *output, long length,
 								 des_key_schedule ks1, des_key_schedule ks2,
@@ -1434,7 +1434,7 @@ METHOD(crypter_t, decrypt, bool,
 }
 
 
-METHOD(crypter_t, encrypt, bool,
+METHOD(crypter_t, wencrypt, bool,
 	private_des_crypter_t *this, chunk_t data, chunk_t iv, chunk_t *encrypted)
 {
 	des_cblock ivb;
@@ -1587,19 +1587,19 @@ des_crypter_t *des_crypter_create(encryption_algorithm_t algo)
 		case ENCR_DES:
 			this->key_size = sizeof(des_cblock);
 			this->public.crypter.set_key = _set_key;
-			this->public.crypter.encrypt = _encrypt;
+			this->public.crypter.wencrypt = _wencrypt;
 			this->public.crypter.decrypt = _decrypt;
 			break;
 		case ENCR_3DES:
 			this->key_size = 3 * sizeof(des_cblock);
 			this->public.crypter.set_key = _set_key3;
-			this->public.crypter.encrypt = _encrypt3;
+			this->public.crypter.wencrypt = _encrypt3;
 			this->public.crypter.decrypt = _decrypt3;
 			break;
 		case ENCR_DES_ECB:
 			this->key_size = sizeof(des_cblock);
 			this->public.crypter.set_key = _set_key;
-			this->public.crypter.encrypt = _encrypt_ecb;
+			this->public.crypter.wencrypt = _encrypt_ecb;
 			this->public.crypter.decrypt = _decrypt_ecb;
 			break;
 		default:

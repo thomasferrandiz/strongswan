@@ -96,7 +96,7 @@ START_TEST(test_chapoly)
 		.destroy = (void*)free,
 	);
 	ctx->get_aead(ctx)->get_iv_gen = _get_iv_gen;
-	ck_assert(esp->encrypt(esp, ctx, htonl(0x01020304)) == SUCCESS);
+	ck_assert(esp->wencrypt(esp, ctx, htonl(0x01020304)) == SUCCESS);
 
 	data = esp->packet.get_data(&esp->packet);
 	exp = chunk_from_chars(0x01,0x02,0x03,0x04,0x00,0x00,0x00,0x05,

@@ -98,7 +98,7 @@ METHOD(ntru_public_key_t, get_encoding, chunk_t,
  */
 extern bool ntru_check_min_weight(uint16_t N, uint8_t  *t, uint16_t min_wt);
 
-METHOD(ntru_public_key_t, encrypt, bool,
+METHOD(ntru_public_key_t, wencrypt, bool,
 	private_ntru_public_key_t *this, chunk_t plaintext, chunk_t *ciphertext)
 {
 	ext_out_function_t alg;
@@ -327,7 +327,7 @@ ntru_public_key_t *ntru_public_key_create(drbg_t *drbg,
 		.public = {
 			.get_id = _get_id,
 			.get_encoding = _get_encoding,
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.destroy = _destroy,
 		},
 		.params = params,
@@ -386,7 +386,7 @@ ntru_public_key_t *ntru_public_key_create_from_data(drbg_t *drbg,
 		.public = {
 			.get_id = _get_id,
 			.get_encoding = _get_encoding,
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.destroy = _destroy,
 		},
 		.params = params,

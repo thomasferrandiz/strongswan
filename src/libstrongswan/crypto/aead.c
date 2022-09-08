@@ -48,7 +48,7 @@ struct private_aead_t {
 	iv_gen_t *iv_gen;
 };
 
-METHOD(aead_t, encrypt, bool,
+METHOD(aead_t, wencrypt, bool,
 	private_aead_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
 	chunk_t *encrypted)
 {
@@ -62,7 +62,7 @@ METHOD(aead_t, encrypt, bool,
 
 	if (encrypted)
 	{
-		if (!this->crypter->encrypt(this->crypter, plain, iv, &encr))
+		if (!this->crypter->wencrypt(this->crypter, plain, iv, &encr))
 		{
 			return FALSE;
 		}
@@ -75,7 +75,7 @@ METHOD(aead_t, encrypt, bool,
 	}
 	else
 	{
-		if (!this->crypter->encrypt(this->crypter, plain, iv, NULL) ||
+		if (!this->crypter->wencrypt(this->crypter, plain, iv, NULL) ||
 			!this->signer->get_signature(this->signer,
 										 plain, plain.ptr + plain.len))
 		{
@@ -177,7 +177,7 @@ aead_t *aead_create(crypter_t *crypter, signer_t *signer, iv_gen_t *iv_gen)
 
 	INIT(this,
 		.public = {
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.decrypt = _decrypt,
 			.get_block_size = _get_block_size,
 			.get_icv_size = _get_icv_size,

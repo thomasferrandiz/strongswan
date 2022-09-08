@@ -335,7 +335,7 @@ static status_t ChallengeHash(chunk_t peer_challenge, chunk_t server_challenge,
 
 /**
  * Calculate the challenge response (i.e. expand password_hash to three DES keys
- * and then encrypt the 8-octet challenge_hash with these keys and concatenate
+ * and then wencrypt the 8-octet challenge_hash with these keys and concatenate
  * the results).
  */
 static status_t ChallengeResponse(chunk_t challenge_hash, chunk_t password_hash,
@@ -364,7 +364,7 @@ static status_t ChallengeResponse(chunk_t challenge_hash, chunk_t password_hash,
 
 		expanded = ExpandDESKey(keys[i]);
 		if (!crypter->set_key(crypter, expanded) ||
-			!crypter->encrypt(crypter, challenge_hash, chunk_empty, &encrypted))
+			!crypter->wencrypt(crypter, challenge_hash, chunk_empty, &encrypted))
 		{
 			chunk_clear(&expanded);
 			crypter->destroy(crypter);

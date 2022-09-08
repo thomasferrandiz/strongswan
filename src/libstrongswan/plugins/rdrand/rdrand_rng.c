@@ -362,7 +362,7 @@ static bool rdrand_mixed(private_rdrand_rng_t *this, chunk_t chunk)
 				return FALSE;
 			}
 			memxor(forward, block, sizeof(block));
-			if (!crypter->encrypt(crypter, chunk_from_thing(forward),
+			if (!crypter->wencrypt(crypter, chunk_from_thing(forward),
 								  chunk_from_thing(iv), NULL))
 			{
 				crypter->destroy(crypter);

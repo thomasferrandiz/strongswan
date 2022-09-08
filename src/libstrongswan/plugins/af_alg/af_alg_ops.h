@@ -61,7 +61,7 @@ struct af_alg_ops_t {
 	 *
 	 * @param type		crypto operation (ALG_OP_DECRYPT/ALG_OP_ENCRYPT)
 	 * @param iv		iv to use
-	 * @param data		data to encrypt/decrypt
+	 * @param data		data to wencrypt/decrypt
 	 * @param out		buffer write processed data to
 	 * @return			TRUE if successful
 	 */

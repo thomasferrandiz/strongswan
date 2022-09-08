@@ -67,7 +67,7 @@ struct private_aesni_ccm_t {
 	/**
 	 * CCM encryption function
 	 */
-	aesni_ccm_fn_t encrypt;
+	aesni_ccm_fn_t wencrypt;
 
 	/**
 	 * CCM decryption function
@@ -734,7 +734,7 @@ static void decrypt_ccm256(private_aesni_ccm_t *this,
 	crypt_icv(this, iv, c, icv);
 }
 
-METHOD(aead_t, encrypt, bool,
+METHOD(aead_t, wencrypt, bool,
 	private_aesni_ccm_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
 	chunk_t *encr)
 {
@@ -750,7 +750,7 @@ METHOD(aead_t, encrypt, bool,
 		*encr = chunk_alloc(plain.len + this->icv_size);
 		out = encr->ptr;
 	}
-	this->encrypt(this, plain.len, plain.ptr, out, iv.ptr,
+	this->wencrypt(this, plain.len, plain.ptr, out, iv.ptr,
 				  assoc.len, assoc.ptr, out + plain.len);
 	return TRUE;
 }
@@ -876,7 +876,7 @@ aesni_ccm_t *aesni_ccm_create(encryption_algorithm_t algo,
 	INIT_ALIGN(this, sizeof(__m128i),
 		.public = {
 			.aead = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_icv_size = _get_icv_size,
@@ -895,15 +895,15 @@ aesni_ccm_t *aesni_ccm_create(encryption_algorithm_t algo,
 	switch (key_size)
 	{
 		case 16:
-			this->encrypt = encrypt_ccm128;
+			this->wencrypt = encrypt_ccm128;
 			this->decrypt = decrypt_ccm128;
 			break;
 		case 24:
-			this->encrypt = encrypt_ccm192;
+			this->wencrypt = encrypt_ccm192;
 			this->decrypt = decrypt_ccm192;
 			break;
 		case 32:
-			this->encrypt = encrypt_ccm256;
+			this->wencrypt = encrypt_ccm256;
 			this->decrypt = decrypt_ccm256;
 			break;
 	}

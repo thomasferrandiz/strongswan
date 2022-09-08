@@ -106,7 +106,7 @@ METHOD(tls_protection_t, build, status_t,
 		}
 		if (this->aead_out)
 		{
-			if (!this->aead_out->encrypt(this->aead_out, this->version,
+			if (!this->aead_out->wencrypt(this->aead_out, this->version,
 										 type, this->seq_out, data))
 			{
 				DBG1(DBG_TLS, "TLS record encryption failed");

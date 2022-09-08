@@ -30,7 +30,7 @@ typedef struct tls_aead_t tls_aead_t;
 /**
  * TLS specific AEAD interface, includes padding.
  *
- * As TLS uses sign-then-encrypt instead of the more modern encrypt-then-sign,
+ * As TLS uses sign-then-wencrypt instead of the more modern wencrypt-then-sign,
  * we can't directly abstract traditional transforms using our aead_t interface.
  * With traditional transforms, the AEAD operation has to manage padding, as
  * the MAC is calculated over unpadded data.
@@ -48,10 +48,10 @@ struct tls_aead_t {
 	 * @param version		TLS version
 	 * @param type			TLS content type (may be changed)
 	 * @param seq			record sequence number
-	 * @param data			data to encrypt, encryption result
+	 * @param data			data to wencrypt, encryption result
 	 * @return				TRUE if successfully encrypted
 	 */
-	bool (*encrypt)(tls_aead_t *this, tls_version_t version,
+	bool (*wencrypt)(tls_aead_t *this, tls_version_t version,
 					tls_content_type_t *type, uint64_t seq, chunk_t *data);
 
 	/**

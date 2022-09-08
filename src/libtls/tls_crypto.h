@@ -709,7 +709,7 @@ tls_named_group_t tls_ec_group_to_curve(key_exchange_method_t group);
 key_type_t tls_signature_scheme_to_key_type(tls_signature_scheme_t sig);
 
 /**
- * Find a private key to encrypt/verify key exchange data
+ * Find a private key to wencrypt/verify key exchange data
  *
  * @param min_version	minimum negotiated TLS version
  * @param max_version	maximum negotiated TLS version

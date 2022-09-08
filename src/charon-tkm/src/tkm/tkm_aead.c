@@ -75,7 +75,7 @@ METHOD(iv_gen_t, allocate_iv, bool,
 	return get_iv(this, seq, chunk->len, chunk->ptr);
 }
 
-METHOD(aead_t, encrypt, bool,
+METHOD(aead_t, wencrypt, bool,
 	private_aead_t *this, chunk_t plain, chunk_t assoc,
 	chunk_t iv, chunk_t *encrypted)
 {
@@ -211,7 +211,7 @@ aead_t *tkm_aead_create(isa_id_type isa_ctx_id, block_len_type block_len,
 
 	INIT(aead,
 		.public = {
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.decrypt = _decrypt,
 			.get_block_size = _get_block_size,
 			.get_icv_size = _get_icv_size,

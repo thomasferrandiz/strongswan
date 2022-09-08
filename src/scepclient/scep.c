@@ -217,7 +217,7 @@ chunk_t scep_build_request(chunk_t data, chunk_t transID, scep_msg_t msg,
 	}
 	rng->destroy(rng);
 
-	/* encrypt data in enveloped-data PKCS#7 */
+	/* wencrypt data in enveloped-data PKCS#7 */
 	container = lib->creds->create(lib->creds,
 					CRED_CONTAINER, CONTAINER_PKCS7_ENVELOPED_DATA,
 					BUILD_BLOB, data,

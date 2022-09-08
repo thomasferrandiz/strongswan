@@ -52,7 +52,7 @@ struct private_simaka_crypto_t {
 	signer_t *signer;
 
 	/**
-	 * crypter to encrypt/decrypt AT_ENCR_DATA
+	 * crypter to wencrypt/decrypt AT_ENCR_DATA
 	 */
 	crypter_t *crypter;
 

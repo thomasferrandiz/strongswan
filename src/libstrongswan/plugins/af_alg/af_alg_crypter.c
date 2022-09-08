@@ -147,7 +147,7 @@ METHOD(crypter_t, decrypt, bool,
 	return this->ops->crypt(this->ops, ALG_OP_DECRYPT, iv, data, data.ptr);
 }
 
-METHOD(crypter_t, encrypt, bool,
+METHOD(crypter_t, wencrypt, bool,
 	private_af_alg_crypter_t *this, chunk_t data, chunk_t iv, chunk_t *dst)
 {
 	if (dst)
@@ -208,7 +208,7 @@ af_alg_crypter_t *af_alg_crypter_create(encryption_algorithm_t algo,
 	INIT(this,
 		.public = {
 			.crypter = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_iv_size = _get_iv_size,

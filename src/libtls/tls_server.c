@@ -170,7 +170,7 @@ struct private_tls_server_t {
 };
 
 /**
- * Find a trusted public key to encrypt/verify key exchange data
+ * Find a trusted public key to wencrypt/verify key exchange data
  */
 public_key_t *tls_find_public_key(auth_cfg_t *peer_auth, identification_t *id)
 {

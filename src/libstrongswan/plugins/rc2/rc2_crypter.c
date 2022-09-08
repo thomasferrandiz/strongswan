@@ -220,7 +220,7 @@ METHOD(crypter_t, decrypt, bool,
 	return TRUE;
 }
 
-METHOD(crypter_t, encrypt, bool,
+METHOD(crypter_t, wencrypt, bool,
 	private_rc2_crypter_t *this, chunk_t data, chunk_t iv, chunk_t *encrypted)
 {
 	uint8_t *in, *out, *end, *prev;
@@ -333,7 +333,7 @@ rc2_crypter_t *rc2_crypter_create(encryption_algorithm_t algo, size_t key_size)
 	INIT(this,
 		.public = {
 			.crypter = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_iv_size = _get_iv_size,

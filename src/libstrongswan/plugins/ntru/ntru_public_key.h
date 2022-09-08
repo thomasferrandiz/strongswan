@@ -53,7 +53,7 @@ struct ntru_public_key_t {
 	 * @param plaintext		Ciphertext
 	 * @return				TRUE if encryption was successful
 	 */
-	bool (*encrypt)(ntru_public_key_t *this, chunk_t plaintext,
+	bool (*wencrypt)(ntru_public_key_t *this, chunk_t plaintext,
 					chunk_t *ciphertext);
 
 	/**

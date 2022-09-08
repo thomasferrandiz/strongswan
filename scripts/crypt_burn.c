@@ -43,7 +43,7 @@ static int burn_crypter(const proposal_token_t *token, u_int limit, u_int len)
 	ok = crypter->set_key(crypter, key);
 	while (ok)
 	{
-		if (!crypter->encrypt(crypter, data, iv, NULL))
+		if (!crypter->wencrypt(crypter, data, iv, NULL))
 		{
 			fprintf(stderr, "encryption failed!\n");
 			ok = FALSE;
@@ -99,7 +99,7 @@ static bool burn_aead(const proposal_token_t *token, u_int limit, u_int len)
 	ok = aead->set_key(aead, key);
 	while (ok)
 	{
-		if (!aead->encrypt(aead, data, assoc, iv, NULL))
+		if (!aead->wencrypt(aead, data, assoc, iv, NULL))
 		{
 			fprintf(stderr, "aead encryption failed!\n");
 			ok = FALSE;

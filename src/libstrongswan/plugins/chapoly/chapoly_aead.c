@@ -109,7 +109,7 @@ static bool do_encrypt(private_chapoly_aead_t *this, size_t len, u_char *data,
 		return FALSE;
 	}
 	blocks = len / CHACHA_BLOCK_SIZE;
-	if (!this->drv->encrypt(this->drv, data, blocks))
+	if (!this->drv->wencrypt(this->drv, data, blocks))
 	{
 		return FALSE;
 	}
@@ -185,7 +185,7 @@ static bool do_decrypt(private_chapoly_aead_t *this, size_t len, u_char *data,
 		   this->drv->finish(this->drv, icv);
 }
 
-METHOD(aead_t, encrypt, bool,
+METHOD(aead_t, wencrypt, bool,
 	private_chapoly_aead_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
 	chunk_t *encr)
 {
@@ -315,7 +315,7 @@ chapoly_aead_t *chapoly_aead_create(encryption_algorithm_t algo,
 	INIT(this,
 		.public = {
 			.aead = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_icv_size = _get_icv_size,

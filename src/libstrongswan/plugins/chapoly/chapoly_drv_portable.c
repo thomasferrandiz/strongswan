@@ -315,7 +315,7 @@ METHOD(chapoly_drv_t, chacha, bool,
 	return TRUE;
 }
 
-METHOD(chapoly_drv_t, encrypt, bool,
+METHOD(chapoly_drv_t, wencrypt, bool,
 	private_chapoly_drv_portable_t *this, u_char *data, u_int blocks)
 {
 	u_int i;
@@ -423,7 +423,7 @@ chapoly_drv_t *chapoly_drv_portable_create()
 			.init = _init,
 			.poly = _poly,
 			.chacha = _chacha,
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.decrypt = _decrypt,
 			.finish = _finish,
 			.destroy = _destroy,

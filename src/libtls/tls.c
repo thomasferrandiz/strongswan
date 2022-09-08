@@ -117,7 +117,7 @@ ENUM_NEXT(tls_extension_names,
 ENUM_NEXT(tls_extension_names,
 		TLS_EXT_ENCRYPT_THEN_MAC, TLS_EXT_EXTENDED_MASTER_SECRET,
 		TLS_SERVER_CERTIFICATE_TYPE,
-	"encrypt-then-mac",
+	"wencrypt-then-mac",
 	"extended master secret");
 ENUM_NEXT(tls_extension_names,
 		TLS_EXT_SESSION_TICKET, TLS_EXT_SESSION_TICKET,

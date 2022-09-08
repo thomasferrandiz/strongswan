@@ -51,7 +51,7 @@ typedef struct __attribute__((__packed__)) {
 	uint16_t length;
 } sigheader_t;
 
-METHOD(tls_aead_t, encrypt, bool,
+METHOD(tls_aead_t, wencrypt, bool,
 	private_tls_aead_t *this, tls_version_t version, tls_content_type_t *type,
 	uint64_t seq, chunk_t *data)
 {
@@ -81,7 +81,7 @@ METHOD(tls_aead_t, encrypt, bool,
 	htoun16(&hdr.length, plain.len);
 
 	assoc = chunk_from_thing(hdr);
-	if (!this->aead->encrypt(this->aead, plain, assoc, iv, NULL))
+	if (!this->aead->wencrypt(this->aead, plain, assoc, iv, NULL))
 	{
 		chunk_free(&encrypted);
 		return FALSE;
@@ -191,7 +191,7 @@ tls_aead_t *tls_aead_create_aead(encryption_algorithm_t encr, size_t encr_size)
 
 	INIT(this,
 		.public = {
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.decrypt = _decrypt,
 			.get_mac_key_size = _get_mac_key_size,
 			.get_encr_key_size = _get_encr_key_size,

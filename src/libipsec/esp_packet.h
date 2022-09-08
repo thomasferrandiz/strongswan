@@ -84,7 +84,7 @@ struct esp_packet_t {
 	status_t (*decrypt)(esp_packet_t *this, esp_context_t *esp_context);
 
 	/**
-	 * Encapsulate and encrypt the packet. The sequence number will be generated
+	 * Encapsulate and wencrypt the packet. The sequence number will be generated
 	 * using the supplied ESP context.
 	 *
 	 * @param esp_context		ESP context of corresponding outbound IPsec SA
@@ -94,7 +94,7 @@ struct esp_packet_t {
 	 *							  cryptographic functions failed
 	 *							- NOT_FOUND if no suitable IV generator provided
 	 */
-	status_t (*encrypt)(esp_packet_t *this, esp_context_t *esp_context,
+	status_t (*wencrypt)(esp_packet_t *this, esp_context_t *esp_context,
 						uint32_t spi);
 
 	/**

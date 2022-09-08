@@ -117,7 +117,7 @@ METHOD(crypter_t, decrypt, bool,
 	return TRUE;
 }
 
-METHOD(crypter_t, encrypt, bool,
+METHOD(crypter_t, wencrypt, bool,
 	private_padlock_aes_crypter_t *this, chunk_t data, chunk_t iv, chunk_t *dst)
 {
 	crypt(this, iv.ptr, data, dst, FALSE);
@@ -185,7 +185,7 @@ padlock_aes_crypter_t *padlock_aes_crypter_create(encryption_algorithm_t algo,
 	INIT(this,
 		.public = {
 			.crypter = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_iv_size = _get_iv_size,

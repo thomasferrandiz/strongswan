@@ -632,7 +632,7 @@ METHOD(simaka_message_t, generate, bool,
 	enumerator = create_attribute_enumerator(this);
 	while (enumerator->enumerate(enumerator, &type, &data))
 	{
-		/* encrypt this attribute? */
+		/* wencrypt this attribute? */
 		switch (type)
 		{
 			case AT_NONCE_S:
@@ -643,7 +643,7 @@ METHOD(simaka_message_t, generate, bool,
 				target = &encr;
 				break;
 			case AT_NOTIFICATION:
-				/* P bit not set, encrypt */
+				/* P bit not set, wencrypt */
 				if (!(data.ptr[0] & 0x40))
 				{
 					target = &encr;
@@ -747,7 +747,7 @@ METHOD(simaka_message_t, generate, bool,
 	}
 	enumerator->destroy(enumerator);
 
-	/* encrypt attributes, if any */
+	/* wencrypt attributes, if any */
 	if (encr.len < sizeof(encr_buf))
 	{
 		chunk_t iv;
@@ -788,7 +788,7 @@ METHOD(simaka_message_t, generate, bool,
 		out = chunk_skip(out, iv.len);
 
 		/* inline encryption */
-		if (!crypter->encrypt(crypter, encr, iv, NULL))
+		if (!crypter->wencrypt(crypter, encr, iv, NULL))
 		{
 			return FALSE;
 		}

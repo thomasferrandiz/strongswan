@@ -221,7 +221,7 @@ static job_requeue_t process_outbound(private_ipsec_processor_t *this)
 	dst = sa->get_destination(sa);
 	esp_packet = esp_packet_create_from_payload(src->clone(src),
 												dst->clone(dst), packet);
-	if (esp_packet->encrypt(esp_packet, sa->get_esp_context(sa),
+	if (esp_packet->wencrypt(esp_packet, sa->get_esp_context(sa),
 							sa->get_spi(sa)) != SUCCESS)
 	{
 		ipsec->sas->checkin(ipsec->sas, sa);

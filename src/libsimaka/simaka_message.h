@@ -234,7 +234,7 @@ struct simaka_message_t {
 	bool (*verify)(simaka_message_t *this, chunk_t sigdata);
 
 	/**
-	 * Generate a message, optionally encrypt attributes and create a MAC.
+	 * Generate a message, optionally wencrypt attributes and create a MAC.
 	 *
 	 * @param sigdata	additional data to include in signature, if any
 	 * @param gen		allocated generated data, if successful

@@ -187,7 +187,7 @@ static u_int bench_crypter(private_crypto_tester_t *this,
 		start_timing(&start);
 		while (end_timing(&start) < this->bench_time)
 		{
-			if (crypter->encrypt(crypter, buf, chunk_from_thing(iv), NULL))
+			if (crypter->wencrypt(crypter, buf, chunk_from_thing(iv), NULL))
 			{
 				runs++;
 			}
@@ -245,7 +245,7 @@ METHOD(crypto_tester_t, test_crypter, bool,
 
 		/* allocated encryption */
 		plain = chunk_create(vector->plain, vector->len);
-		if (!crypter->encrypt(crypter, plain, iv, &cipher))
+		if (!crypter->wencrypt(crypter, plain, iv, &cipher))
 		{
 			goto failure;
 		}
@@ -273,7 +273,7 @@ METHOD(crypto_tester_t, test_crypter, bool,
 			goto failure;
 		}
 		/* inline encryption */
-		if (!crypter->encrypt(crypter, plain, iv, NULL))
+		if (!crypter->wencrypt(crypter, plain, iv, NULL))
 		{
 			goto failure;
 		}
@@ -368,7 +368,7 @@ static u_int bench_aead(private_crypto_tester_t *this,
 		start_timing(&start);
 		while (end_timing(&start) < this->bench_time)
 		{
-			if (aead->encrypt(aead, buf, chunk_from_thing(assoc),
+			if (aead->wencrypt(aead, buf, chunk_from_thing(assoc),
 						chunk_from_thing(iv), NULL))
 			{
 				runs += 2;
@@ -439,7 +439,7 @@ METHOD(crypto_tester_t, test_aead, bool,
 
 		/* allocated encryption */
 		plain = chunk_create(vector->plain, vector->len);
-		if (!aead->encrypt(aead, plain, assoc, iv, &cipher))
+		if (!aead->wencrypt(aead, plain, assoc, iv, &cipher))
 		{
 			goto failure;
 		}
@@ -468,7 +468,7 @@ METHOD(crypto_tester_t, test_aead, bool,
 		}
 		plain.ptr = realloc(plain.ptr, plain.len + icv);
 		/* inline encryption */
-		if (!aead->encrypt(aead, plain, assoc, iv, NULL))
+		if (!aead->wencrypt(aead, plain, assoc, iv, NULL))
 		{
 			goto failure;
 		}

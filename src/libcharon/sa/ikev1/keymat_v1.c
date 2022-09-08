@@ -92,11 +92,11 @@ typedef struct {
 } private_aead_t;
 
 
-METHOD(aead_t, encrypt, bool,
+METHOD(aead_t, wencrypt, bool,
 	private_aead_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
 	chunk_t *encrypted)
 {
-	return this->crypter->encrypt(this->crypter, plain, iv, encrypted);
+	return this->crypter->wencrypt(this->crypter, plain, iv, encrypted);
 }
 
 METHOD(aead_t, decrypt, bool,
@@ -233,7 +233,7 @@ static aead_t *create_aead(proposal_t *proposal, prf_t *prf, chunk_t skeyid_e,
 
 	INIT(this,
 		.aead = {
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.decrypt = _decrypt,
 			.get_block_size = _get_block_size,
 			.get_icv_size = _get_icv_size,

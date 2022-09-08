@@ -75,7 +75,7 @@ struct tls_hkdf_t {
 	/**
 	 * Allocate traffic encryption key bytes.
 	 *
-	 * Key used to encrypt traffic data as defined in RFC 8446, section 7.3.
+	 * Key used to wencrypt traffic data as defined in RFC 8446, section 7.3.
 	 * Space for returned secret is allocated and must be freed by the caller.
 	 *
 	 * @param is_server			TRUE if server, FALSE if client derives secret
@@ -89,7 +89,7 @@ struct tls_hkdf_t {
 	/**
 	 * Allocate traffic IV bytes.
 	 *
-	 * IV used to encrypt traffic data as defined in RFC 8446, section 7.3.
+	 * IV used to wencrypt traffic data as defined in RFC 8446, section 7.3.
 	 * Space for returned secret is allocated and must be freed by the caller.
 	 *
 	 * @param is_server			TRUE if server, FALSE if client derives secret

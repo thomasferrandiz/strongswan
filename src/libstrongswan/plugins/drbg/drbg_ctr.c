@@ -113,7 +113,7 @@ static bool encrypt_ctr(private_drbg_ctr_t *this, chunk_t out)
 		memcpy(block.ptr, this->value.ptr, this->value.len);
 
 		/* ECB encryption */
-		if (!this->crypter->encrypt(this->crypter, block, chunk_empty, NULL))
+		if (!this->crypter->wencrypt(this->crypter, block, chunk_empty, NULL))
 		{
 			return FALSE;
 		}

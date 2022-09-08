@@ -68,7 +68,7 @@ struct private_radius_message_t {
 	rmsg_t *msg;
 
 	/**
-	 * User-Password to encrypt and encode, if any
+	 * User-Password to wencrypt and encode, if any
 	 */
 	chunk_t password;
 };
@@ -484,7 +484,7 @@ METHOD(radius_message_t, sign, bool,
 
 	if (this->password.len)
 	{
-		/* encrypt password inline */
+		/* wencrypt password inline */
 		if (!crypt(this, chunk_empty, this->password, this->password,
 				   secret, hasher))
 		{

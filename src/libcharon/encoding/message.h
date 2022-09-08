@@ -180,7 +180,7 @@ struct message_t {
 	 * If the payload must be encrypted is not specified here. Encryption
 	 * of payloads is evaluated via internal rules for the messages and
 	 * is done before generation. The order of payloads may change, since
-	 * all payloads to encrypt are added to the encryption payload, which is
+	 * all payloads to wencrypt are added to the encryption payload, which is
 	 * always the last one.
 	 *
 	 * @param payload		payload to append
@@ -248,7 +248,7 @@ struct message_t {
 	 * Generation is only done once, multiple calls will just return a copy
 	 * of the packet.
 	 *
-	 * @param keymat	keymat to encrypt/sign message
+	 * @param keymat	keymat to wencrypt/sign message
 	 * @param packet	copy of generated packet
 	 * @return
 	 *					- SUCCESS if packet could be generated
@@ -269,7 +269,7 @@ struct message_t {
 	 * Generates the message split into fragments of the given size (total IP
 	 * datagram length).
 	 *
-	 * @param keymat	keymat to encrypt/sign message(s)
+	 * @param keymat	keymat to wencrypt/sign message(s)
 	 * @param frag_len	fragment length (maximum total IP datagram length), 0
 	 *					for default value depending on address family
 	 * @param fragments	receives an enumerator with generated packet_t*,

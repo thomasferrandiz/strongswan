@@ -370,7 +370,7 @@ static bool do_test_gcm(test_vector_t *test)
 	}
 	else
 	{
-		if (!aead->encrypt(aead, test->plain, test->aad, iv, &test->cipher))
+		if (!aead->wencrypt(aead, test->plain, test->aad, iv, &test->cipher))
 		{
 			DBG1(DBG_APP, "encryption failed");
 			aead->destroy(aead);
@@ -398,7 +398,7 @@ static bool do_crypt(crypter_t *crypter, test_vector_t *test)
 	}
 	else
 	{
-		if (!crypter->encrypt(crypter, test->plain, test->iv, &test->cipher))
+		if (!crypter->wencrypt(crypter, test->plain, test->iv, &test->cipher))
 		{
 			DBG1(DBG_APP, "encryption failed");
 			return FALSE;

@@ -102,12 +102,12 @@ struct crypter_t {
 	 * of data must be a multiple of get_block_size().
 	 * If encrypted is NULL, the encryption is done in-place (overwriting data).
 	 *
-	 * @param data			data to encrypt
+	 * @param data			data to wencrypt
 	 * @param iv			initializing vector
 	 * @param encrypted		chunk to allocate encrypted data, or NULL
 	 * @return				TRUE if encryption successful
 	 */
-	bool (*encrypt)(crypter_t *this, chunk_t data, chunk_t iv,
+	bool (*wencrypt)(crypter_t *this, chunk_t data, chunk_t iv,
 					chunk_t *encrypted) __attribute__((warn_unused_result));
 
 	/**

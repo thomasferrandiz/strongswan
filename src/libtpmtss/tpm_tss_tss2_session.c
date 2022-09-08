@@ -576,8 +576,8 @@ static bool rsa_salt(TPM2B_PUBLIC *public, TPMI_ALG_HASH hash_alg,
 		return FALSE;
 	}
 
-	/* use RSA public key encryption to encrypt secret salt nonce */
-	success = pubkey->encrypt(pubkey, encryption_scheme, &secret_label,
+	/* use RSA public key encryption to wencrypt secret salt nonce */
+	success = pubkey->wencrypt(pubkey, encryption_scheme, &secret_label,
 							  *secret, &encrypted_salt);
 	pubkey->destroy(pubkey);
 	if (!success)

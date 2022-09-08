@@ -415,7 +415,7 @@ START_TEST(test_ed25519_gen)
 	pubkey2->destroy(pubkey2);
 
 	/* encryption not supported */
-	ck_assert(!pubkey->encrypt(pubkey, ENCRYPT_UNKNOWN, NULL, msg, NULL));
+	ck_assert(!pubkey->wencrypt(pubkey, ENCRYPT_UNKNOWN, NULL, msg, NULL));
 
 	/* verify with wrong signature scheme */
 	ck_assert(!pubkey->verify(pubkey, SIGN_ED448, NULL, msg, sig));

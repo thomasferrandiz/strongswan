@@ -459,7 +459,7 @@ static status_t encrypt_content(char *label, aead_t *aead, uint64_t mid,
 	iv.len = aead->get_iv_size(aead);
 	icv.len = aead->get_icv_size(aead);
 
-	/* prepare data to authenticate-encrypt:
+	/* prepare data to authenticate-wencrypt:
 	 * | IV | plain | padding | ICV |
 	 *       \____crypt______/   ^
 	 *              |           /
@@ -491,7 +491,7 @@ static status_t encrypt_content(char *label, aead_t *aead, uint64_t mid,
 	DBG3(DBG_ENC, "padding %B", &padding);
 	DBG3(DBG_ENC, "assoc %B", &assoc);
 
-	if (!aead->encrypt(aead, crypt, assoc, iv, NULL))
+	if (!aead->wencrypt(aead, crypt, assoc, iv, NULL))
 	{
 		return FAILED;
 	}
@@ -500,7 +500,7 @@ static status_t encrypt_content(char *label, aead_t *aead, uint64_t mid,
 	return SUCCESS;
 }
 
-METHOD(encrypted_payload_t, encrypt, status_t,
+METHOD(encrypted_payload_t, wencrypt, status_t,
 	private_encrypted_payload_t *this, uint64_t mid, chunk_t assoc)
 {
 	generator_t *generator;
@@ -544,7 +544,7 @@ METHOD(encrypted_payload_t, encrypt_v1, status_t,
 	bs = this->aead->get_block_size(this->aead);
 	padding.len = bs - (plain.len % bs);
 
-	/* prepare data to encrypt:
+	/* prepare data to wencrypt:
 	 * | plain | padding | */
 	free(this->encrypted.ptr);
 	this->encrypted = chunk_alloc(plain.len + padding.len);
@@ -559,7 +559,7 @@ METHOD(encrypted_payload_t, encrypt_v1, status_t,
 	DBG3(DBG_ENC, "plain %B", &plain);
 	DBG3(DBG_ENC, "padding %B", &padding);
 
-	if (!this->aead->encrypt(this->aead, this->encrypted, chunk_empty, iv, NULL))
+	if (!this->aead->wencrypt(this->aead, this->encrypted, chunk_empty, iv, NULL))
 	{
 		return FAILED;
 	}
@@ -781,7 +781,7 @@ encrypted_payload_t *encrypted_payload_create(payload_type_t type)
 			.generate_payloads = _generate_payloads,
 			.set_transform = _set_transform,
 			.get_transform = _get_transform,
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.decrypt = _decrypt,
 			.destroy = _destroy,
 		},
@@ -793,7 +793,7 @@ encrypted_payload_t *encrypted_payload_create(payload_type_t type)
 
 	if (type == PLV1_ENCRYPTED)
 	{
-		this->public.encrypt = _encrypt_v1;
+		this->public.wencrypt = _encrypt_v1;
 		this->public.decrypt = _decrypt_v1;
 	}
 
@@ -1026,7 +1026,7 @@ encrypted_fragment_payload_t *encrypted_fragment_payload_create()
 				.generate_payloads = nop,
 				.set_transform = _frag_set_transform,
 				.get_transform = _frag_get_transform,
-				.encrypt = _frag_encrypt,
+				.wencrypt = _frag_encrypt,
 				.decrypt = _frag_decrypt,
 				.destroy = _frag_destroy,
 			},

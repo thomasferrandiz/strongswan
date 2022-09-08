@@ -134,7 +134,7 @@ struct plugin_feature_t {
 		FEATURE_PUBKEY,
 		/** public_key_t->verify() */
 		FEATURE_PUBKEY_VERIFY,
-		/** public_key_t->encrypt() */
+		/** public_key_t->wencrypt() */
 		FEATURE_PUBKEY_ENCRYPT,
 		/** parsing certificates */
 		FEATURE_CERT_DECODE,

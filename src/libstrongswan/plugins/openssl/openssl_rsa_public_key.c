@@ -240,7 +240,7 @@ METHOD(public_key_t, verify, bool,
 	}
 }
 
-METHOD(public_key_t, encrypt, bool,
+METHOD(public_key_t, wencrypt, bool,
 	private_openssl_rsa_public_key_t *this, encryption_scheme_t scheme,
 	void *params, chunk_t plain, chunk_t *crypto)
 {
@@ -508,7 +508,7 @@ static private_openssl_rsa_public_key_t *create_internal(EVP_PKEY *key)
 			.key = {
 				.get_type = _get_type,
 				.verify = _verify,
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.equals = public_key_equals,
 				.get_keysize = _get_keysize,
 				.get_fingerprint = _get_fingerprint,

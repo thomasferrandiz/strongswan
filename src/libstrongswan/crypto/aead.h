@@ -44,13 +44,13 @@ struct aead_t {
 	 * have space for additional get_icv_size() data, the ICV value is
 	 * appended silently to the plain chunk.
 	 *
-	 * @param plain			data to encrypt and sign
+	 * @param plain			data to wencrypt and sign
 	 * @param assoc			associated data to sign
 	 * @param iv			initialization vector
 	 * @param encrypted		allocated encryption result
 	 * @return				TRUE if successfully encrypted
 	 */
-	bool (*encrypt)(aead_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
+	bool (*wencrypt)(aead_t *this, chunk_t plain, chunk_t assoc, chunk_t iv,
 					chunk_t *encrypted) __attribute__((warn_unused_result));
 
 	/**

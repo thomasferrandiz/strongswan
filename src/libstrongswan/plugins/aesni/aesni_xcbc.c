@@ -92,7 +92,7 @@ METHOD(mac_t, get_mac, bool,
 	if (this->rem_size + data.len > AES_BLOCK_SIZE)
 	{
 		/* (3) For each block M[i], where i = 1 ... n-1:
-		 *     XOR M[i] with E[i-1], then encrypt the result with Key K1,
+		 *     XOR M[i] with E[i-1], then wencrypt the result with Key K1,
 		 *     yielding E[i].
 		 */
 
@@ -159,7 +159,7 @@ METHOD(mac_t, get_mac, bool,
 		if (this->rem_size == AES_BLOCK_SIZE && !this->zero)
 		{
 			/* a) If the blocksize of M[n] is 128 bits:
-			 *    XOR M[n] with E[n-1] and Key K2, then encrypt the result with
+			 *    XOR M[n] with E[n-1] and Key K2, then wencrypt the result with
 			 *    Key K1, yielding E[n].
 			 */
 			e = _mm_xor_si128(e, this->k2);
@@ -178,7 +178,7 @@ METHOD(mac_t, get_mac, bool,
 					   AES_BLOCK_SIZE - this->rem_size);
 				this->rem[this->rem_size] = 0x80;
 			}
-			/*  ii) XOR M[n] with E[n-1] and Key K3, then encrypt the result
+			/*  ii) XOR M[n] with E[n-1] and Key K3, then wencrypt the result
 			 *      with Key K1, yielding E[n].
 			 */
 			e = _mm_xor_si128(e, this->k3);

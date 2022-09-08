@@ -438,7 +438,7 @@ static bool encrypt_key(certificate_t *cert, chunk_t in, chunk_t *out)
 	{
 		return FALSE;
 	}
-	if (!key->encrypt(key, ENCRYPT_RSA_PKCS1, NULL, in, out))
+	if (!key->wencrypt(key, ENCRYPT_RSA_PKCS1, NULL, in, out))
 	{
 		key->destroy(key);
 		return FALSE;
@@ -518,7 +518,7 @@ static bool generate(private_pkcs7_enveloped_data_t *this,
 
 	/* symmetric inline encryption of content */
 	if (!crypter->set_key(crypter, symmetricKey) ||
-		!crypter->encrypt(crypter, content, iv, NULL))
+		!crypter->wencrypt(crypter, content, iv, NULL))
 	{
 		crypter->destroy(crypter);
 		chunk_clear(&symmetricKey);

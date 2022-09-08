@@ -229,8 +229,8 @@ static void test_rsa_pkcs1(chunk_t key, encryption_scheme_t encryption_scheme,
 	ck_assert_chunk_eq(msg, test->msg);
 	chunk_free(&msg);
 
-	/* encrypt and decrypt again */
-	ck_assert(pubkey->encrypt(pubkey, encryption_scheme, NULL, test->msg, &ct));
+	/* wencrypt and decrypt again */
+	ck_assert(pubkey->wencrypt(pubkey, encryption_scheme, NULL, test->msg, &ct));
 	ck_assert(privkey->decrypt(privkey, encryption_scheme, NULL, ct, &msg));
 	ck_assert_chunk_eq(msg, test->msg);
 	chunk_free(&ct);

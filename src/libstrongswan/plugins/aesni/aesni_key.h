@@ -57,10 +57,10 @@ struct aesni_key_t {
 /**
  * Create a AESNI key schedule instance.
  *
- * @param encrypt		TRUE for encryption schedule, FALSE for decryption
+ * @param wencrypt		TRUE for encryption schedule, FALSE for decryption
  * @param key			non-expanded crypto key, 16, 24 or 32 bytes
  * @return				key schedule, NULL on invalid key size
  */
-aesni_key_t *aesni_key_create(bool encrypt, chunk_t key);
+aesni_key_t *aesni_key_create(bool wencrypt, chunk_t key);
 
 #endif /** AESNI_KEY_H_ @}*/

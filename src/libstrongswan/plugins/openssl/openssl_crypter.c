@@ -152,7 +152,7 @@ METHOD(crypter_t, decrypt, bool,
 	return crypt(this, data, iv, dst, 0);
 }
 
-METHOD(crypter_t, encrypt, bool,
+METHOD(crypter_t, wencrypt, bool,
 	private_openssl_crypter_t *this, chunk_t data, chunk_t iv, chunk_t *dst)
 {
 	return crypt(this, data, iv, dst, 1);
@@ -212,7 +212,7 @@ openssl_crypter_t *openssl_crypter_create(encryption_algorithm_t algo,
 	INIT(this,
 		.public = {
 			.crypter = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_iv_size = _get_iv_size,

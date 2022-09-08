@@ -81,7 +81,7 @@ struct chapoly_drv_t {
 	 * @param blocks		number of 64-byte blocks to process
 	 * @return				TRUE if encrypted
 	 */
-	bool (*encrypt)(chapoly_drv_t *this, u_char *data, u_int blocks);
+	bool (*wencrypt)(chapoly_drv_t *this, u_char *data, u_int blocks);
 
 	/**
 	 * Decrypt multiple blocks of data inline, update Poly1305.

@@ -178,7 +178,7 @@ static int sign(chunk_t chunk, certificate_t *cert, private_key_t *key)
 /**
  * Encrypt data to a PKCS#7 enveloped-data
  */
-static int encrypt(chunk_t chunk, certificate_t *cert)
+static int wencrypt(chunk_t chunk, certificate_t *cert)
 {
 	container_t *container;
 	chunk_t encoding;
@@ -414,7 +414,7 @@ static int pkcs7()
 			res = verify(data);
 			break;
 		case OP_ENCRYPT:
-			res = encrypt(data, cert);
+			res = wencrypt(data, cert);
 			break;
 		case OP_DECRYPT:
 			if (!key)
@@ -447,18 +447,18 @@ static void __attribute__ ((constructor))reg()
 {
 	command_register((command_t) {
 		pkcs7, '7', "pkcs7", "PKCS#7 wrap/unwrap functions",
-		{"--sign|--verify|--encrypt|--decrypt|--show",
+		{"--sign|--verify|--wencrypt|--decrypt|--show",
 		 "[--in file] [--cert file]+ [--key file]"},
 		{
 			{"help",	'h', 0, "show usage information"},
 			{"sign",	's', 0, "create PKCS#7 signed-data"},
 			{"verify",	'u', 0, "verify PKCS#7 signed-data"},
-			{"encrypt",	'e', 0, "create PKCS#7 enveloped-data"},
+			{"wencrypt",	'e', 0, "create PKCS#7 enveloped-data"},
 			{"decrypt",	'd', 0, "decrypt PKCS#7 enveloped-data"},
 			{"show",	'p', 0, "show info about PKCS#7, print certificates"},
 			{"in",		'i', 1, "input file, default: stdin"},
 			{"key",		'k', 1, "path to private key for sign/decrypt"},
-			{"cert",	'c', 1, "path to certificate for sign/verify/encrypt"},
+			{"cert",	'c', 1, "path to certificate for sign/verify/wencrypt"},
 		}
 	});
 }

@@ -207,8 +207,8 @@ METHOD(key_exchange_t, set_public_key, bool,
 		}
 		this->computed = TRUE;
 
-		/* encrypt the shared secret */
-		if (!pubkey->encrypt(pubkey, this->shared_secret, &this->ciphertext))
+		/* wencrypt the shared secret */
+		if (!pubkey->wencrypt(pubkey, this->shared_secret, &this->ciphertext))
 		{
 			DBG1(DBG_LIB, "NTRU encryption of shared secret failed");
 			return FALSE;

@@ -112,7 +112,7 @@ METHOD(crypter_t, decrypt, bool,
 	return TRUE;
 }
 
-METHOD(crypter_t, encrypt, bool,
+METHOD(crypter_t, wencrypt, bool,
 	private_blowfish_crypter_t *this, chunk_t data, chunk_t iv,
 	chunk_t *encrypted)
 {
@@ -185,7 +185,7 @@ blowfish_crypter_t *blowfish_crypter_create(encryption_algorithm_t algo,
 	INIT(this,
 		.public = {
 			.crypter = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_iv_size = _get_iv_size,

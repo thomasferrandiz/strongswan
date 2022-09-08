@@ -42,7 +42,7 @@ struct private_esp_context_t {
 	esp_context_t public;
 
 	/**
-	 * AEAD wrapper or method to encrypt/decrypt/authenticate ESP packets
+	 * AEAD wrapper or method to wencrypt/decrypt/authenticate ESP packets
 	 */
 	aead_t *aead;
 

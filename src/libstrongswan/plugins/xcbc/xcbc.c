@@ -102,7 +102,7 @@ static bool update(private_mac_t *this, chunk_t data)
 	memset(iv.ptr, 0, iv.len);
 
 	/* (3) For each block M[i], where i = 1 ... n-1:
-	 *     XOR M[i] with E[i-1], then encrypt the result with Key K1,
+	 *     XOR M[i] with E[i-1], then wencrypt the result with Key K1,
 	 *     yielding E[i].
 	 */
 
@@ -111,7 +111,7 @@ static bool update(private_mac_t *this, chunk_t data)
 		   this->b - this->remaining_bytes);
 	data = chunk_skip(data, this->b - this->remaining_bytes);
 	memxor(this->e, this->remaining, this->b);
-	if (!this->k1->encrypt(this->k1, chunk_create(this->e, this->b), iv, NULL))
+	if (!this->k1->wencrypt(this->k1, chunk_create(this->e, this->b), iv, NULL))
 	{
 		return FALSE;
 	}
@@ -122,7 +122,7 @@ static bool update(private_mac_t *this, chunk_t data)
 		memcpy(this->remaining, data.ptr, this->b);
 		data = chunk_skip(data, this->b);
 		memxor(this->e, this->remaining, this->b);
-		if (!this->k1->encrypt(this->k1, chunk_create(this->e, this->b),
+		if (!this->k1->wencrypt(this->k1, chunk_create(this->e, this->b),
 							   iv, NULL))
 		{
 			return FALSE;
@@ -150,7 +150,7 @@ static bool final(private_mac_t *this, uint8_t *out)
 	if (this->remaining_bytes == this->b && !this->zero)
 	{
 		/* a) If the blocksize of M[n] is 128 bits:
-		 *    XOR M[n] with E[n-1] and Key K2, then encrypt the result with
+		 *    XOR M[n] with E[n-1] and Key K2, then wencrypt the result with
 		 *    Key K1, yielding E[n].
 		 */
 		memxor(this->e, this->remaining, this->b);
@@ -172,13 +172,13 @@ static bool final(private_mac_t *this, uint8_t *out)
 				this->remaining[this->remaining_bytes] = 0x00;
 			}
 		}
-		/*  ii) XOR M[n] with E[n-1] and Key K3, then encrypt the result
+		/*  ii) XOR M[n] with E[n-1] and Key K3, then wencrypt the result
 		 *      with Key K1, yielding E[n].
 		 */
 		memxor(this->e, this->remaining, this->b);
 		memxor(this->e, this->k3, this->b);
 	}
-	if (!this->k1->encrypt(this->k1, chunk_create(this->e, this->b), iv, NULL))
+	if (!this->k1->wencrypt(this->k1, chunk_create(this->e, this->b), iv, NULL))
 	{
 		return FALSE;
 	}
@@ -263,9 +263,9 @@ METHOD(mac_t, set_key, bool,
 	memset(this->k3, 0x03, this->b);
 
 	if (!this->k1->set_key(this->k1, lengthened) ||
-		!this->k1->encrypt(this->k1, chunk_create(this->k2, this->b), iv, NULL) ||
-		!this->k1->encrypt(this->k1, chunk_create(this->k3, this->b), iv, NULL) ||
-		!this->k1->encrypt(this->k1, k1, iv, NULL) ||
+		!this->k1->wencrypt(this->k1, chunk_create(this->k2, this->b), iv, NULL) ||
+		!this->k1->wencrypt(this->k1, chunk_create(this->k3, this->b), iv, NULL) ||
+		!this->k1->wencrypt(this->k1, k1, iv, NULL) ||
 		!this->k1->set_key(this->k1, k1))
 	{
 		memwipe(k1.ptr, k1.len);

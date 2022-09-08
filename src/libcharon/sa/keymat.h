@@ -82,7 +82,7 @@ struct keymat_t {
 	/**
 	 * Get a AEAD transform to en-/decrypt and sign/verify IKE messages.
 	 *
-	 * @param in		TRUE for inbound (decrypt), FALSE for outbound (encrypt)
+	 * @param in		TRUE for inbound (decrypt), FALSE for outbound (wencrypt)
 	 * @return			crypter
 	 */
 	aead_t* (*get_aead)(keymat_t *this, bool in);

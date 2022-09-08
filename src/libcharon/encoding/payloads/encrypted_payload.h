@@ -86,7 +86,7 @@ struct encrypted_payload_t {
 	aead_t *(*get_transform)(encrypted_payload_t *this);
 
 	/**
-	 * Generate, encrypt and sign contained payloads.
+	 * Generate, wencrypt and sign contained payloads.
 	 *
 	 * @param mid			message ID
 	 * @param assoc			associated data
@@ -95,7 +95,7 @@ struct encrypted_payload_t {
 	 * 						- FAILED if encryption failed
 	 * 						- INVALID_STATE if aead not supplied, but needed
 	 */
-	status_t (*encrypt) (encrypted_payload_t *this, uint64_t mid,
+	status_t (*wencrypt) (encrypted_payload_t *this, uint64_t mid,
 						 chunk_t assoc);
 
 	/**

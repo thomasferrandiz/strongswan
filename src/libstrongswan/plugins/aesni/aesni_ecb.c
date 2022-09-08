@@ -58,7 +58,7 @@ struct private_aesni_ecb_t {
 	/**
 	 * Encryption method
 	 */
-	aesni_ecb_fn_t encrypt;
+	aesni_ecb_fn_t wencrypt;
 
 	/**
 	 * Decryption method
@@ -721,10 +721,10 @@ static bool crypt(aesni_ecb_fn_t fn, aesni_key_t *key, chunk_t data,
 	return TRUE;
 }
 
-METHOD(crypter_t, encrypt, bool,
+METHOD(crypter_t, wencrypt, bool,
 	private_aesni_ecb_t *this, chunk_t data, chunk_t iv, chunk_t *encrypted)
 {
-	return crypt(this->encrypt, this->ekey, data, encrypted);
+	return crypt(this->wencrypt, this->ekey, data, encrypted);
 }
 
 METHOD(crypter_t, decrypt, bool,
@@ -803,7 +803,7 @@ aesni_ecb_t *aesni_ecb_create(encryption_algorithm_t algo, size_t key_size)
 	INIT_ALIGN(this, sizeof(__m128i),
 		.public = {
 			.crypter = {
-				.encrypt = _encrypt,
+				.wencrypt = _wencrypt,
 				.decrypt = _decrypt,
 				.get_block_size = _get_block_size,
 				.get_iv_size = _get_iv_size,
@@ -818,15 +818,15 @@ aesni_ecb_t *aesni_ecb_create(encryption_algorithm_t algo, size_t key_size)
 	switch (key_size)
 	{
 		case 16:
-			this->encrypt = encrypt_ecb128;
+			this->wencrypt = encrypt_ecb128;
 			this->decrypt = decrypt_ecb128;
 			break;
 		case 24:
-			this->encrypt = encrypt_ecb192;
+			this->wencrypt = encrypt_ecb192;
 			this->decrypt = decrypt_ecb192;
 			break;
 		case 32:
-			this->encrypt = encrypt_ecb256;
+			this->wencrypt = encrypt_ecb256;
 			this->decrypt = decrypt_ecb256;
 			break;
 	}

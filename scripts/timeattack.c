@@ -308,7 +308,7 @@ static bool attack_aeads(encryption_algorithm_t alg, size_t key_size,
 		return FALSE;
 	}
 	memset(buf, 0, aead->get_iv_size(aead));
-	if (!aead->encrypt(aead, chunk_create(buf, 0), chunk_empty,
+	if (!aead->wencrypt(aead, chunk_create(buf, 0), chunk_empty,
 					   chunk_create(buf, aead->get_iv_size(aead)), NULL))
 	{
 		aead->destroy(aead);

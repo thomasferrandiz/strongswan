@@ -1583,15 +1583,15 @@ static encrypted_payload_t* wrap_payloads(private_message_t *this)
 	{
 		payload_rule_t *rule;
 		payload_type_t type;
-		bool encrypt = TRUE;
+		bool wencrypt = TRUE;
 
 		type = current->get_type(current);
 		rule = get_payload_rule(this, type);
 		if (rule)
 		{
-			encrypt = rule->encrypted;
+			wencrypt = rule->encrypted;
 		}
-		if (encrypt || this->is_encrypted)
+		if (wencrypt || this->is_encrypted)
 		{	/* encryption is forced for IKEv1 */
 			DBG2(DBG_ENC, "insert payload %N into encrypted payload",
 				 payload_type_names, type);
@@ -1721,7 +1721,7 @@ static status_t generate_message(private_message_t *this, keymat_t *keymat,
 	}
 	else if (!encrypting)
 	{
-		/* If at least one payload requires encryption, encrypt the message.
+		/* If at least one payload requires encryption, wencrypt the message.
 		 * If no key material is available, the flag will be reset below. */
 		enumerator = this->payloads->create_enumerator(this->payloads);
 		while (enumerator->enumerate(enumerator, (void**)&payload))
@@ -1758,7 +1758,7 @@ static status_t generate_message(private_message_t *this, keymat_t *keymat,
 		}
 		else
 		{
-			DBG1(DBG_ENC, "unable to encrypt payloads without AEAD transform");
+			DBG1(DBG_ENC, "unable to wencrypt payloads without AEAD transform");
 			return FAILED;
 		}
 	}
@@ -1827,7 +1827,7 @@ static status_t finalize_message(private_message_t *this, keymat_t *keymat,
 			htoun32(lenpos, chunk.len + encrypted->get_length(encrypted));
 		}
 		this->payloads->insert_last(this->payloads, encrypted);
-		if (encrypted->encrypt(encrypted, this->message_id, chunk) != SUCCESS)
+		if (encrypted->wencrypt(encrypted, this->message_id, chunk) != SUCCESS)
 		{
 			generator->destroy(generator);
 			return INVALID_STATE;

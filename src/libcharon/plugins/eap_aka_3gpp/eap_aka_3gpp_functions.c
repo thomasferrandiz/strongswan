@@ -132,7 +132,7 @@ static bool f1andf1star(private_eap_aka_3gpp_functions_t *this,
 	/* XOR RAND and OPc */
 	memcpy(data, rand, sizeof(data));
 	memxor(data, opc, sizeof(data));
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), NULL))
 	{
 		return FALSE;
@@ -149,7 +149,7 @@ static bool f1andf1star(private_eap_aka_3gpp_functions_t *this,
 	{
 		data[(i + 8) % 16] ^= in[i] ^ opc[i];
 	}
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), NULL))
 	{
 		return FALSE;
@@ -216,7 +216,7 @@ METHOD(eap_aka_3gpp_functions_t, f2345, bool,
 	/* XOR RAND and OPc */
 	memcpy(data, rand, sizeof(data));
 	memxor(data, opc, sizeof(data));
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), &temp))
 	{
 		return FALSE;
@@ -231,7 +231,7 @@ METHOD(eap_aka_3gpp_functions_t, f2345, bool,
 	}
 	data[15] ^= 1;
 
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), NULL))
 	{
 		chunk_free(&temp);
@@ -253,7 +253,7 @@ METHOD(eap_aka_3gpp_functions_t, f2345, bool,
 	}
 	data[15] ^= 2;
 
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), NULL))
 	{
 		chunk_free(&temp);
@@ -273,7 +273,7 @@ METHOD(eap_aka_3gpp_functions_t, f2345, bool,
 	}
 	data[15] ^= 4;
 
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), NULL))
 	{
 		chunk_free(&temp);
@@ -304,7 +304,7 @@ METHOD(eap_aka_3gpp_functions_t, f5star, bool,
 	/* XOR RAND and OPc */
 	memcpy(data, rand, sizeof(data));
 	memxor(data, opc, sizeof(data));
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), &temp))
 	{
 		return FALSE;
@@ -320,7 +320,7 @@ METHOD(eap_aka_3gpp_functions_t, f5star, bool,
 	data[15] ^= 8;
 	chunk_free(&temp);
 
-	if (!this->crypter->encrypt(this->crypter, chunk_create(data, sizeof(data)),
+	if (!this->crypter->wencrypt(this->crypter, chunk_create(data, sizeof(data)),
 								chunk_create(iv, sizeof(iv)), NULL))
 	{
 		return FALSE;

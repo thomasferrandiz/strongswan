@@ -291,7 +291,7 @@ static void generate_padding(chunk_t padding)
 	}
 }
 
-METHOD(esp_packet_t, encrypt, status_t,
+METHOD(esp_packet_t, wencrypt, status_t,
 	private_esp_packet_t *this, esp_context_t *esp_context, uint32_t spi)
 {
 	chunk_t iv, icv, aad, padding, payload, ciphertext;
@@ -366,8 +366,8 @@ METHOD(esp_packet_t, encrypt, status_t,
 		 "padding length = %hhu, next header = %hhu", &payload, &padding,
 		 (uint8_t)padding.len, this->next_header);
 
-	/* encrypt/authenticate the content inline */
-	if (!aead->encrypt(aead, ciphertext, aad, iv, NULL))
+	/* wencrypt/authenticate the content inline */
+	if (!aead->wencrypt(aead, ciphertext, aad, iv, NULL))
 	{
 		DBG1(DBG_ESP, "ESP encryption or ICV generation failed");
 		writer->destroy(writer);
@@ -439,7 +439,7 @@ static private_esp_packet_t *esp_packet_create_internal(packet_t *packet)
 			.get_next_header = _get_next_header,
 			.parse_header = _parse_header,
 			.decrypt = _decrypt,
-			.encrypt = _encrypt,
+			.wencrypt = _wencrypt,
 			.get_payload = _get_payload,
 			.extract_payload = _extract_payload,
 			.destroy = _destroy,

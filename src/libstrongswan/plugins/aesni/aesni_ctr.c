@@ -615,7 +615,7 @@ aesni_ctr_t *aesni_ctr_create(encryption_algorithm_t algo, size_t key_size)
 	INIT_ALIGN(this, sizeof(__m128i),
 		.public = {
 			.crypter = {
-				.encrypt = _crypt,
+				.wencrypt = _crypt,
 				.decrypt = _crypt,
 				.get_block_size = _get_block_size,
 				.get_iv_size = _get_iv_size,

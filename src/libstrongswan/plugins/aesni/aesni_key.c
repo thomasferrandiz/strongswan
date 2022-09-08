@@ -251,7 +251,7 @@ METHOD(aesni_key_t, destroy, void,
 /**
  * See header
  */
-aesni_key_t *aesni_key_create(bool encrypt, chunk_t key)
+aesni_key_t *aesni_key_create(bool wencrypt, chunk_t key)
 {
 	private_aesni_key_t *this;
 	int rounds;
@@ -293,7 +293,7 @@ aesni_key_t *aesni_key_create(bool encrypt, chunk_t key)
 			break;
 	}
 
-	if (!encrypt)
+	if (!wencrypt)
 	{
 		reverse_key(&this->public);
 	}
